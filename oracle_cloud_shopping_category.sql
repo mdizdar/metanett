@@ -21,24 +21,16 @@ select
          CASE
                   WHEN pch.PURCHASING_CAT_FLAG = 'Y'
                            THEN
-                           (
-                                  select
-                                         ect.CATEGORY_NAME
-                                  FROM
-                                         EGP_CATEGORIES_TL ect
-                                  where
-                                         pch.child_category_id = ect.category_id
+                           (      select ect.CATEGORY_NAME
+                                  FROM   EGP_CATEGORIES_TL ect
+                                  where  pch.child_category_id = ect.category_id
                                          AND ect.language      = 'US'
                            )
                            ELSE
-                                (
-                                       select
-                                              prct.CATEGORY_NAME
-                                       FROM
-                                              POR_BROWSE_CATEGORIES_TL prct
-                                       where
-                                              pch.child_category_id = prct.category_id
-                                              AND prct.language     = 'US'
+                           (      select prct.CATEGORY_NAME
+                                  FROM   POR_BROWSE_CATEGORIES_TL prct
+                                  where  pch.child_category_id = prct.category_id
+                                         AND prct.language     = 'US'
                            )
          END CHILD_CATEGORY_NAME_US
 from
